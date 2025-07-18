@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container py-5">
+  <h2 class="mb-4">🛒 Your Cart</h2>
+
+  {% if cart_items %}
+  <table class="table table-bordered table-hover">
+    <thead class="table-light">
+      <tr>
+        <th>Image</th>
+        <th>Product</th>
+        <th>Size</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Subtotal</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in cart_items %}
+      <tr>
+        <td><img src="{{ item.product.image.url }}" width="70" class="rounded"></td>
+        <td>{{ item.product.name }}</td>
+        <td>{{ item.product.size }}</td>
+        <td>₹{{ item.product.price }}</td>
+        <td>
+          <div class="d-flex align-items-center">
+            <a href="{% url 'update_cart' item.product.id 'subtract' %}" class="btn btn-sm btn-outline-secondary me-2">–</a>
+            <span>{{ item.quantity }}</span>
+            <a href="{% url 'update_cart' item.product.id 'add' %}" class="btn btn-sm btn-outline-secondary ms-2">+</a>
+          </div>
+        </td>
+        <td>₹{{ item.subtotal }}</td>
+        <td>
+          <a href="{% url 'remove_from_cart' item.product.id %}" class="btn btn-sm btn-danger">Remove</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+    <tfoot>
+      <tr>
+        <th colspan="5" class="text-end">Total:</th>
+        <th colspan="2">₹{{ total }}</th>
+      </tr>
+    </tfoot>
+  </table>
+
+  {% if user.is_authenticated %}
+  <div class="text-end">
+    <a href="{% url 'place_order' %}" class="btn btn-success">✅ Place Order</a>
+  </div>
+  {% else %}
+  <p class="mt-3">
+    <a href="{% url 'login' %}">Login</a> to place your order.
+  </p>
+  {% endif %}
+
+  {% else %}
+  <p>Your cart is empty. <a href="/">Continue Shopping</a></p>
+  {% endif %}
+</div>
+
+{% endblock %}

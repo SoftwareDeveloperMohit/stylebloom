@@ -1,0 +1,37 @@
+/* Image height fixed, object-fit to crop properly */
+.product-img {
+  height: 250px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+/* Card styling */
+.product-card {
+  transition: all 0.3s ease;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* On hover - shadow and slight zoom */
+.product-card:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  transform: scale(1.02);
+}
+
+/* Product name styling */
+.product-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+/* Price text */
+.product-price {
+  color: #28a745;
+  font-weight: 500;
+}
+
+@media only screen and (max-width: 576px) {
+  .product-card {
+    margin: 10px 0;
+  }
+}
