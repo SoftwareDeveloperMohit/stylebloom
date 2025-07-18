@@ -1,0 +1,1 @@
+web: gunicorn stylebloom_backend.wsgi
